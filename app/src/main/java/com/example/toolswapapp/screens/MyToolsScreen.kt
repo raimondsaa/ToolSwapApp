@@ -29,7 +29,9 @@ fun MyToolsScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { showDialog = true },
-                containerColor = MaterialTheme.colorScheme.primary
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+                shape = MaterialTheme.shapes.large
             ) {
                 Icon(Icons.Default.Add, contentDescription = "Add Tool")
             }
@@ -44,8 +46,8 @@ fun MyToolsScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(
-                text = "Your Tool Collection",
-                style = MaterialTheme.typography.titleLarge,
+                text = "Your Tools",
+                style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.primary
             )
 
@@ -69,13 +71,21 @@ fun MyToolsScreen(
 }
 
 @Composable
-fun AddToolDialog(onAdd: (String, String) -> Unit, onDismiss: () -> Unit) {
+fun AddToolDialog(
+    onAdd: (String, String) -> Unit,
+    onDismiss: () -> Unit
+) {
     var name by remember { mutableStateOf("") }
     var condition by remember { mutableStateOf("") }
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Add a New Tool") },
+        title = {
+            Text(
+                text = "Add a New Tool",
+                style = MaterialTheme.typography.titleMedium
+            )
+        },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(
@@ -105,6 +115,7 @@ fun AddToolDialog(onAdd: (String, String) -> Unit, onDismiss: () -> Unit) {
             TextButton(onClick = onDismiss) {
                 Text("Cancel")
             }
-        }
+        },
+        shape = MaterialTheme.shapes.large
     )
 }

@@ -8,22 +8,33 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.Alignment
 import com.example.toolswapapp.R
 import com.example.toolswapapp.model.Tool
 
 @Composable
 fun ToolCard(tool: Tool) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(12.dp),
-        elevation = CardDefaults.cardElevation(4.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 100.dp),
+        shape = RoundedCornerShape(16.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        )
     ) {
-        Row(modifier = Modifier.padding(16.dp)) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             val imageRes = when (tool.name.lowercase()) {
                 "hammer" -> R.drawable.ic_hammer
                 "screwdriver" -> R.drawable.ic_screwdriver
                 "cordless drill", "drill" -> R.drawable.ic_drill
-                else -> R.drawable.ic_tool_placeholder
+                else -> R.drawable.logo
             }
 
             Image(
@@ -34,9 +45,17 @@ fun ToolCard(tool: Tool) {
                     .padding(end = 16.dp)
             )
 
-            Column(verticalArrangement = Arrangement.Center) {
-                Text(tool.name, style = MaterialTheme.typography.titleLarge)
-                Text("Condition: ${tool.condition}", style = MaterialTheme.typography.bodyMedium)
+            Column {
+                Text(
+                    text = tool.name,
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    text = "Condition: ${tool.condition}",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
         }
     }

@@ -1,4 +1,3 @@
-/* Modernized LoginScreen.kt */
 package com.example.toolswapapp.screens
 
 import androidx.compose.foundation.Image
@@ -32,17 +31,24 @@ fun LoginScreen(navController: NavController) {
             .padding(24.dp),
         contentAlignment = Alignment.Center
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(20.dp),
+        ) {
             Image(
-                painter = painterResource(R.drawable.ic_tool_placeholder),
-                contentDescription = "Logo",
-                modifier = Modifier.size(72.dp)
+                painter = painterResource(R.drawable.logo),
+                contentDescription = "App Logo",
+                modifier = Modifier.size(96.dp)
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
-            Text("Welcome to ToolSwap", style = MaterialTheme.typography.headlineMedium)
+            Text(
+                text = "Welcome to ToolSwap",
+                style = MaterialTheme.typography.headlineMedium,
+                color = MaterialTheme.colorScheme.primary
+            )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(8.dp))
+
             CustomOutlinedField(
                 value = email,
                 onValueChange = { email = it },
@@ -51,7 +57,6 @@ fun LoginScreen(navController: NavController) {
                 keyboardType = KeyboardType.Email
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
             CustomOutlinedField(
                 value = password,
                 onValueChange = { password = it },
@@ -61,7 +66,8 @@ fun LoginScreen(navController: NavController) {
                 visualTransformation = PasswordVisualTransformation()
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+
             Button(
                 onClick = {
                     if (email.isNotBlank() && password.isNotBlank()) {
@@ -71,15 +77,28 @@ fun LoginScreen(navController: NavController) {
                         showError = true
                     }
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp),
+                shape = MaterialTheme.shapes.medium
             ) {
-                if (loading) CircularProgressIndicator(modifier = Modifier.size(18.dp), strokeWidth = 2.dp)
-                else Text("Login")
+                if (loading) {
+                    CircularProgressIndicator(
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        modifier = Modifier.size(18.dp),
+                        strokeWidth = 2.dp
+                    )
+                } else {
+                    Text("Login")
+                }
             }
 
             if (showError) {
-                Spacer(modifier = Modifier.height(8.dp))
-                Text("Please enter email and password", color = MaterialTheme.colorScheme.error)
+                Text(
+                    text = "Please enter email and password",
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodySmall
+                )
             }
         }
     }
@@ -102,8 +121,7 @@ fun CustomOutlinedField(
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
         singleLine = true,
         visualTransformation = visualTransformation,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        shape = MaterialTheme.shapes.medium
     )
 }
-
-/* I can continue generating modernized files for the rest of the screens, view model, and components. Let me know if you want all updates as a zip or added here. */

@@ -26,17 +26,28 @@ fun BrowseScreen(
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "Available Tools",
-            style = MaterialTheme.typography.titleLarge,
+            text = "Browse Tools",
+            style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.primary
         )
 
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            items(tools) { tool ->
-                ToolCard(tool = tool)
+        if (tools.isEmpty()) {
+            Text(
+                text = "No tools available.",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        } else {
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                modifier = Modifier.fillMaxSize()
+            ) {
+                items(tools) { tool ->
+                    ToolCard(tool = tool)
+                }
             }
         }
     }
